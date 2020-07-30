@@ -1,27 +1,43 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect:'/login'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path:'/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue')
   },
-];
-
+  {
+    path:'/main',
+    name: 'main',
+    component: () => import(/* webpackChunkName: "main" */ '@/views/main/index.vue'),
+    children: [{
+      path:'/user',
+      name: 'user',
+      component: () => import(/* webpackChunkName: "user" */ '@/views/main/user/index.vue')
+    },{
+      path:'/role',
+      name: 'role',
+      component: () => import(/* webpackChunkName: "role" */ '@/views/main/role/index.vue')
+    },{
+      path:'/project',
+      name: 'project',
+      component: () => import(/* webpackChunkName: "project" */ '@/views/main/project/index.vue')
+    },{
+      path:'/project-edit',
+      name: 'projectEdit',
+      component: () => import(/* webpackChunkName: "project" */ '@/views/main/project/edit.vue')
+    }]
+  },
+]
 const router = new VueRouter({
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router
