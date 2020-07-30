@@ -42,7 +42,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 	.project {
     width: 100%;
     height: 100%;

@@ -1,8 +1,8 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{'navbar-thin': isCollapse}">
     <div class="sys-logo">
       <img src="@/assets/logo.png" alt="logo">
-      <img style="cursor:pointer" src="@/assets/imgs/toggleMeun.svg" alt="toggle" @click="changeMeun">
+      <i class="iconfont nav-logo" v-html="!isCollapse ? '&#xe623;' : '&#xe621;'" style="cursor:pointer" @click="changeMeun"></i>
     </div>
     <el-menu class="el-menu-vertical-demo" :router="true" :collapse="isCollapse">
       <template v-for="(item, index) in navList">
@@ -64,6 +64,7 @@ export default {
   methods: {
     changeMeun() {
       this.isCollapse = !this.isCollapse
+      this.$emit('changeWidth', this.isCollapse)
     }
   }
 }
@@ -71,26 +72,41 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-  .navbar {
-    width: 240px;
-    height: 100%;
-    border-right:  1px solid #e6e6e6;
+.navbar {
+  width: 240px;
+  height: 100%;
+  border-right:  1px solid #e6e6e6;
 
-    .sys-logo {
-      width: 100%;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      img {
-        width: 32px;
-        padding: 0 8px;
-      }
-    }
-
-    /deep/ .el-menu {
-      border-right: 0;
-    }
+  img {
+    width: 32px;
   }
+}
+.navbar-thin {
+  width: 64px!important;
+
+  img {
+    width: 22px;
+  }
+}
+.sys-logo {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    padding: 0 8px;
+  }
+}
+
+.nav-logo {
+  font-size: 24px;
+  color: #333;
+  padding-right: 12px;
+}
+
+/deep/ .el-menu {
+  border-right: 0;
+}
 </style>
